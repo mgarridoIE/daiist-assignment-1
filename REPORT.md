@@ -22,6 +22,10 @@ Car age was calculated relative to 2016, when the data was collected. Age and mi
 
 The data was split into 5,855 training rows, 1,250 validation rows and 1,259 test rows. Advertisements with identical recorded characteristics stayed in the same split. Preprocessing was learned from training data. Validation helped choose the settings, while test data was reserved for the final evaluation.
 
+Brand and model were combined so that matching model names from different brands would not be treated as the same category. Categories appearing fewer than 20 times in the training data were grouped to avoid learning separate effects from very few examples. Numeric inputs were standardized so that differences in their units would not dominate regularization or training. These transformations were fitted only on training data and then applied unchanged to validation and test data, keeping those sets separate from the learning process.
+
+The split was random by groups rather than temporal because the dataset has no individual advertisement dates. The year column records when the car was manufactured, not when it was advertised. Keeping advertisements with identical recorded characteristics together reduces overlap between the sets, although without vehicle IDs it cannot identify every repeated car. This evaluates other advertisements from the same historical context, not performance in a future market.
+
 ## Models and results
 
 This is a regression problem because the output is a number: the asking price. The first comparison was a simple baseline that predicted USD 9,500 for every car. Percentage error was the main measure because the same dollar difference matters more for a cheap car than for an expensive one.
@@ -45,8 +49,9 @@ MAPE is the mean absolute percentage error; MAE is the mean absolute error in do
 
 ## Dashboard
 
-The dashboard loads the saved models without retraining them. Employees enter the car's details, see the three estimates and apply a percentage adjustment to the suggested price. Other views compare predicted and actual prices and show the distribution of prices and vehicle characteristics. Training and dashboard startup were checked locally, along with prediction and input-validation checks.
+The Gradio dashboard allows an employee to enter a car’s details and obtain an initial asking-price recommendation. It displays the estimates from all three models and lets the employee adjust the suggested price by a percentage, while leaving the final decision to them. This adjustment does not predict how quickly the car will sell.
 
+Separate tabs compare predicted prices with actual advertised prices from the test set and show the distribution of prices and vehicle characteristics. The dashboard loads the saved models without retraining them. Prediction and input-validation checks passed locally, and GitHub Actions confirmed that the training pipeline and dashboard startup worked successfully.
 ## Limitations and next steps
 
 I would keep the current tool as a prototype. Before using it in a dealership, I would first find advertisements updated to 2026 for the relevant market and retrain the model. I would also try to reduce the error. Newer data would still need to be evaluated. Also, I would take the data from advertisements from Spain since the country from where the car is advertised conditions its price.
