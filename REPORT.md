@@ -32,6 +32,17 @@ The same model was implemented with scikit-learn, a manual PyTorch loop and the 
 
 On the test set, all three obtained a mean absolute percentage error of 25.65% and a mean absolute dollar error of USD 4,124.51. The baseline had errors of 101.70% and USD 9,845.97 respectively. The three models' predictions differed by less than one cent because they learned the same relationship from the same inputs. Their agreement checks the implementations; it does not mean that every prediction is correct. The 25.65% figure is an average, not a maximum error for each car.
 
+Results on the same 1,259 test advertisements:
+
+| Model | MAPE (%) | MAE (USD) |
+|---|---:|---:|
+| Median-price baseline | 101.70 | 9,845.97 |
+| Scikit-learn | 25.65 | 4,124.51 |
+| Manual PyTorch | 25.65 | 4,124.51 |
+| Standard PyTorch | 25.65 | 4,124.51 |
+
+MAPE is the mean absolute percentage error; MAE is the mean absolute error in dollars. Lower values are better.
+
 ## Dashboard
 
 The dashboard loads the saved models without retraining them. Employees enter the car's details, see the three estimates and apply a percentage adjustment to the suggested price. Other views compare predicted and actual prices and show the distribution of prices and vehicle characteristics. Training and dashboard startup were checked locally, along with prediction and input-validation checks.
@@ -46,4 +57,4 @@ The recommendation would remain an initial proposal rather than a final price. E
 
 ## Generative AI use disclosure
 
-I used Codex to help write and debug code based on the instructions I gave throughout the project. It also helped with the dashboard and technical checks. I wrote an initial draft about the dataset and business idea, and Codex helped rewrite it more clearly. Codex also suggested technical choices and drafted explanations for the remaining report sections. These additions were a draft for my review.
+I used Codex to help write and debug code based on the instructions I gave throughout the project. It also helped with the dashboard and technical checks. I wrote an initial draft about the dataset and business idea, and Codex helped rewrite it more clearly. Codex also suggested technical choices and drafted explanations for the remaining report sections. These suggestions and additions he made were a draft for my review.
